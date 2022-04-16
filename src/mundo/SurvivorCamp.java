@@ -120,6 +120,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		plantillaRastrero = new Rastrero((short)1, zombNodoCercano);
 		mejoresPuntajes = new ArrayList<>();
 	}
+	
 
 	/**
 	 * obtiene el estado actual del juego

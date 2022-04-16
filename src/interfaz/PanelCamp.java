@@ -5,23 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.lang.invoke.LambdaMetafactory;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Formatter;
 
 //@SuppressWarnings("serial")
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.tools.Tool;
-
 import mejoras.EstadoArma;
 import mundo.*;
 
 public class PanelCamp extends JPanel implements MouseListener, KeyListener {
 
+	private static final long serialVersionUID = 1L;
 	private JLabel labPuntaje;
 	private JLabel labBajas;
 	private JLabel labRonda;
@@ -86,7 +79,9 @@ public class PanelCamp extends JPanel implements MouseListener, KeyListener {
 		addMouseListener(this);
 		addKeyListener(this);
 		setFocusable(true);
-
+		requestFocus();
+	    requestFocusInWindow();
+		
 		mostrador.add(labBajas);
 		mostrador.add(labRonda);
 		mostrador.add(labTirosALaCabeza);

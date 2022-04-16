@@ -16,6 +16,8 @@ import hilo.HiloBoss;
 import hilo.HiloEnemigo;
 import hilo.HiloGeneradorDeZombies;
 import hilo.HiloSonido;
+import mejoras.commands.CommandExecutor;
+import mejoras.commands.IniciarCommand;
 import mundo.ArmaDeFuego;
 import mundo.Boss;
 import mundo.NombreInvalidoException;
@@ -72,12 +74,17 @@ public class InterfazZombieKiller extends JFrame {
 	 * Cursor temporal del cuchillo
 	 */
 	private Cursor cursorCuchillo;
-
+	
+	private CommandExecutor commandExecutor;
+	
 	/**
 	 * Constructor de la clase principal del juego Aquí se inicializan todos los
 	 * componentes necesarios para empezar a jugar
 	 */
 	public InterfazZombieKiller() {
+		
+		commandExecutor = new CommandExecutor();
+		
 		BorderLayout custom = new BorderLayout();
 		setLayout(custom);
 		ImageIcon laterales = new ImageIcon(getClass().getResource("/img/Fondo/iconozombie.png"));
@@ -111,6 +118,37 @@ public class InterfazZombieKiller extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 	}
+	
+	public PanelCamp getPanelCampo() {
+		return this.panelCampo;
+	}
+	
+	public void setPanelCampo(PanelCamp panelCampo) {
+		this.panelCampo = panelCampo;
+	}
+	
+	public PanelMenu getPanelMenu() {
+		return this.panelMenu;
+	}
+	
+	public Cursor getCursorCuchillo() {
+		return this.cursorCuchillo;
+	}
+	
+	public void cambiarCursor(Cursor cursor) {
+		setCursor(cursor);
+	}
+	
+	public ArmaDeFuego getArmaActual() {
+		return this.armaActual;
+	}
+	
+	public void setArmaActual(ArmaDeFuego arma) {
+		this.armaActual = arma;
+	}
+	public void setCampo(SurvivorCamp campo) {
+		this.campo = campo;
+	}
 
 	/**
 	 * Obtiene el estado actual de la partida
@@ -121,9 +159,6 @@ public class InterfazZombieKiller extends JFrame {
 		return campo.getEstadoJuego();
 	}
 
-	/**
-	 * Inicia una partida desde 0
-	 */
 	public void iniciarNuevaPartida() {
 		if (campo.getEstadoJuego() != SurvivorCamp.SIN_PARTIDA) {
 			int respuesta = JOptionPane.showConfirmDialog(this,
@@ -142,7 +177,7 @@ public class InterfazZombieKiller extends JFrame {
 	 * Método auxiliar que inicializa y actualiza la información en los
 	 * componentes visibles
 	 */
-	private void partidaIniciada() {
+	public void partidaIniciada() {
 		setCursor(cursorCuchillo);
 		Puntaje actual = campo.getRaizPuntajes();
 		campo = new SurvivorCamp();
@@ -523,8 +558,9 @@ public class InterfazZombieKiller extends JFrame {
 		if (!seLlamoDeNuevo) {
 			int aceptoJugar = JOptionPane.showConfirmDialog(this, "Desea volver a jugar?", "Juego Terminado",
 					JOptionPane.YES_NO_OPTION);
-			if (aceptoJugar == JOptionPane.YES_OPTION)
+			if (aceptoJugar == JOptionPane.YES_OPTION) {
 				iniciarNuevaPartida();
+			}
 			else {
 				panelCampo.setVisible(false);
 				panelMenu.setVisible(true);

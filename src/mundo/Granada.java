@@ -35,11 +35,11 @@ public class Granada implements Weapon {
 	
 	public static Granada getInstance() {
 		if (Granada.instance == null) {
-			return new Granada();
+			instance = new Granada();
 		}
 		return Granada.instance;
 	}
-	
+
 	@Override
 	public long calcularDescanso() {
 		long descanso = 0;
@@ -112,6 +112,12 @@ public class Granada implements Weapon {
 	@Override
 	public String getAudioName() {
 		return "Granada";
+	}
+
+	@Override
+	public Weapon reset() {
+		instance = new Granada();
+		return instance;
 	}
 		
 

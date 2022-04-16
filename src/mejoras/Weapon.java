@@ -31,4 +31,6 @@ public interface Weapon extends Serializable {
 	long calcularDescanso();
 	
 	String getAudioName();
+	
+	Weapon reset();
 }

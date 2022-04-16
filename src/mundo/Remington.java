@@ -105,5 +105,12 @@ public class Remington extends ArmaDeFuego implements Weapon {
 	public String getAudioName() {
 		return "Remington";
 	}
+
+
+	@Override
+	public Weapon reset() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 		
 }

@@ -1,7 +1,5 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -14,17 +12,23 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 
-import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
+import mejoras.commands.CargarPartidaCommand;
+import mejoras.commands.CommandExecutor;
+import mejoras.commands.ComoJugarCommand;
+import mejoras.commands.CreditosCommand;
+import mejoras.commands.GuardarPartidaCommand;
+import mejoras.commands.IniciarCommand;
+import mejoras.commands.MejoresCommand;
 import mundo.SurvivorCamp;
 
 public class PanelMenu extends JPanel implements KeyListener, ActionListener, MouseListener {
 
+	private static final long serialVersionUID = 1L;
 	private static final String CONTINUAR = "Continuar";
 	private static final String INICIAR = "Iniciar Nuevo Juego";
 	private static final String CARGAR = "Cargar Partida";
@@ -42,7 +46,12 @@ public class PanelMenu extends JPanel implements KeyListener, ActionListener, Mo
 	private JButton butCreditos;
 	private JButton butPuntajes;
 
+	CommandExecutor commandExecutor = new CommandExecutor();
+	InterfazZombieKiller interfazZombieKiller;
+
 	public PanelMenu(InterfazZombieKiller interfazZombieKiller) {
+		
+		this.interfazZombieKiller = interfazZombieKiller;
 		setFocusable(true);
 		setLayout(new GridLayout(9, 2));
 		principal = interfazZombieKiller;
@@ -58,7 +67,7 @@ public class PanelMenu extends JPanel implements KeyListener, ActionListener, Mo
 		butIniciarJuego = new JButton();
 		configurarBoton(butIniciarJuego, getClass().getResource("/img/Palabras/nuevo.png"), INICIAR);
 		add(butIniciarJuego);
-
+		
 		aux = new JLabel();
 		add(aux);
 		butContinuar = new JButton();
@@ -145,20 +154,28 @@ public class PanelMenu extends JPanel implements KeyListener, ActionListener, Mo
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String cmnd = arg0.getActionCommand();
-		if (cmnd.equals(INICIAR))
-			principal.iniciarNuevaPartida();
+		if (cmnd.equals(INICIAR)) {
+			commandExecutor.ejecutarComando(new IniciarCommand(interfazZombieKiller));
+			// principal.iniciarNuevaPartida();
+		}
 		else if (cmnd.equals(CONTINUAR))
-			principal.pausarJuego();
+			commandExecutor.ejecutarComando(new IniciarCommand(interfazZombieKiller));
+			// principal.pausarJuego();
 		else if (cmnd.equals(CARGAR))
-			principal.cargarJuego();
+			commandExecutor.ejecutarComando(new CargarPartidaCommand(interfazZombieKiller));
+			// principal.cargarJuego();
 		else if(cmnd.equals(GUARDAR))
-			principal.guardarJuego();
+			commandExecutor.ejecutarComando(new GuardarPartidaCommand(interfazZombieKiller));
+			// principal.guardarJuego();
 		else if(cmnd.equals(COMO_JUGAR))
-			principal.mostrarComoJugar();
+			commandExecutor.ejecutarComando(new ComoJugarCommand(interfazZombieKiller));
+			// principal.mostrarComoJugar();
 		else if(cmnd.equals(MEJORES_PUNTAJES))
-			principal.mostrarPuntajes();
+			commandExecutor.ejecutarComando(new MejoresCommand(interfazZombieKiller));
+			// principal.mostrarPuntajes();
 		else if(cmnd.equals(CREDITOS))
-			principal.mostrarCreditos();
+			commandExecutor.ejecutarComando(new CreditosCommand(interfazZombieKiller));
+			// principal.mostrarCreditos();
 	}
 
 	@Override

@@ -86,6 +86,12 @@ public class M1911 extends ArmaDeFuego implements Weapon {
 		
 		return "M1911";
 	}
+
+	@Override
+	public Weapon reset() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 		
 	
 }

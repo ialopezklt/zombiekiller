@@ -93,6 +93,11 @@ public class Cuchillo implements Weapon {
 	public String getAudioName() {
 		return "Cuchillo";
 	}
+	@Override
+	public Weapon reset() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 		
 	
 }

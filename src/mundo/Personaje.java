@@ -59,7 +59,7 @@ public class Personaje implements SerViviente, Serializable {
 	 */
 	public Personaje() {
 		salud = SALUD;
-		granadas = (Granada) WeaponFactory.getWeapon("Granada");
+		granadas = (Granada) WeaponFactory.getWeapon("Granada").reset();
 		armaPrincipal = (M1911) WeaponFactory.getWeapon("M1911");
 		armaSecundaria = (Remington)WeaponFactory.getWeapon("Remington");
 		cuchillo = new Cuchillo();

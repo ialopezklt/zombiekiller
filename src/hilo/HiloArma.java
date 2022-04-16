@@ -20,7 +20,6 @@ public class HiloArma extends Thread {
 
 	@Override
 	public void run() {
-
 		try {
 			if (weapon instanceof ArmaDeFuego) {
 				ArmaDeFuego deFuego = (ArmaDeFuego) weapon;
@@ -32,6 +31,7 @@ public class HiloArma extends Thread {
 				if (weapon.getEstado().equals(EstadoArma.RECARGANDO)) {
 					// descanso mientras suena el disparo
 					sleep(200);
+					
 					if (weapon instanceof Remington && deFuego.getMunicion() > 0) {
 						principal.reproducir("recarga_escopeta");
 					}
