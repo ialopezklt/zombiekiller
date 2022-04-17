@@ -11,12 +11,13 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import mundo.Puntaje;
 
@@ -43,8 +44,9 @@ public class PanelPuntajes extends JPanel implements ActionListener {
 	public PanelPuntajes(InterfazZombieKiller inter) {
 		principal = inter;
 		setBackground(Color.black);
-		Font f = new Font("Chiller", Font.BOLD, 26);
+		Font f = new Font("Chiller", Font.BOLD, 46);
 		titulo = new JLabel("Puntajes");
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		titulo.setForeground(Color.WHITE);
 		butFiltroHeadShot = new JButton(ORDEN_HEADSHOT);
 		butFiltroHeadShot.addActionListener(this);
@@ -81,42 +83,64 @@ public class PanelPuntajes extends JPanel implements ActionListener {
 	}
 
 	private void generaryAgregarLabels(ArrayList<Puntaje> scores) {
+		Font fontTitulos = new Font("Verdana", Font.BOLD, 20);
+		
 		labScores = new JLabel[scores.size()];
 		labNombres = new JLabel[scores.size()];
 		labHeadShots = new JLabel[scores.size()];
 		labBajas = new JLabel[scores.size()];
 		JPanel auxPuntajes = new JPanel();
+		auxPuntajes.setBorder(new EmptyBorder(10,200,10,100));
 		auxPuntajes.setBackground(Color.black);
 		if (scores.size() > 10) {
 			auxPuntajes.setLayout(new GridLayout(11, 4));
 			titulo.setText("Top 10 Mejores Puntajes");
 		} else
 			auxPuntajes.setLayout(new GridLayout(scores.size() + 1, 4));
+		JLabel labNombre = new JLabel("Nombre");
+		labNombre.setFont(fontTitulos);
+		labNombre.setForeground(Color.WHITE);
+		labNombre.setBorder(new EmptyBorder(0, 0, 0, 10));
+		labNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		JLabel labScore = new JLabel("Score");
 		labScore.setForeground(Color.WHITE);
-		JLabel labNombre = new JLabel("Nombre");
-		labNombre.setForeground(Color.WHITE);
+		labScore.setFont(fontTitulos);
 		JLabel labTC = new JLabel("Headshots");
+		labTC.setFont(fontTitulos);
 		labTC.setForeground(Color.WHITE);
 		JLabel labKills = new JLabel("Bajas");
+		labKills.setFont(fontTitulos);
 		labKills.setForeground(Color.WHITE);
 		auxPuntajes.add(labNombre);
 		auxPuntajes.add(labScore);
 		auxPuntajes.add(labKills);
 		auxPuntajes.add(labTC);
+		
+		Font fontCuerpoTabla = new Font("Verdana", Font.PLAIN, 16);
+		
 		for (int i = 0; i < scores.size() && i < 10; i++) {
-			labScores[i] = new JLabel(scores.get(i).getPuntaje() + "");
-			labScores[i].setForeground(Color.WHITE);
+			Color backgroundColor = ((i % 2) == 0?Color.BLACK: Color.GRAY); 
 			labNombres[i] = new JLabel(scores.get(i).getNombreKiller());
 			labNombres[i].setForeground(Color.WHITE);
+			labNombres[i].setFont(fontCuerpoTabla);
+			labNombres[i].setBorder(new EmptyBorder(0, 0, 0, 10));
+			labNombres[i].setHorizontalAlignment(SwingConstants.RIGHT);
+			labScores[i] = new JLabel(scores.get(i).getPuntaje() + "");
+			labScores[i].setForeground(Color.YELLOW);
+			labScores[i].setBackground(backgroundColor);
+			labScores[i].setFont(fontCuerpoTabla);
 			labHeadShots[i] = new JLabel(scores.get(i).getTirosALaCabeza() + "");
 			labHeadShots[i].setForeground(Color.WHITE);
+			labHeadShots[i].setFont(fontCuerpoTabla);
 			labBajas[i] = new JLabel(scores.get(i).getBajas() + "");
 			labBajas[i].setForeground(Color.WHITE);
+			labBajas[i].setFont(fontCuerpoTabla);
+			// auxPuntajes.setBackground(backgroundColor);
 			auxPuntajes.add(labNombres[i]);
 			auxPuntajes.add(labScores[i]);
 			auxPuntajes.add(labBajas[i]);
 			auxPuntajes.add(labHeadShots[i]);
+			
 		}
 		add(auxPuntajes, BorderLayout.CENTER);
 	}
