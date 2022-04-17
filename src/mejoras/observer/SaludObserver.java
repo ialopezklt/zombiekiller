@@ -8,6 +8,7 @@ public class SaludObserver extends Observer {
 	
 	Personaje personaje;
 	InterfazZombieKiller izk;
+	int bonoAnterior = 100;
 	
 	
 	public SaludObserver(Subject subject, Personaje personaje, InterfazZombieKiller izk){
@@ -20,7 +21,8 @@ public class SaludObserver extends Observer {
 	   @Override
 	   public void update() {
 		   Boolean reproducirSonido = false;
-		   if ( (subject.getState() % 100) == 0) {
+		   if ( subject.getState()-bonoAnterior >= 100) {
+			   bonoAnterior = ( Math.floorDiv(subject.getState(), 100) * 100);
 			   if ( personaje.getSalud() < Personaje.SALUD) {
 				   reproducirSonido = true;
 				   personaje.setSalud((byte) (personaje.getSalud() + 1));
