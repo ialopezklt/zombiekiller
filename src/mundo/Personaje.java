@@ -5,6 +5,7 @@ import java.io.Serializable;
 import mejoras.EstadoArma;
 import mejoras.Weapon;
 import mejoras.WeaponFactory;
+import mejoras.observer.Subject;
 
 public class Personaje implements SerViviente, Serializable {
 
@@ -52,17 +53,20 @@ public class Personaje implements SerViviente, Serializable {
 	 * estado temporal que indica que fue herido
 	 */
 	private boolean ensangrentado;
+	
+	private Subject subject;
 
 	/**
 	 * Constructor del personaje cada vez que se inicia una partida
 	 * los valores no inicializados tienen por defecto 0
 	 */
-	public Personaje() {
+	public Personaje(Subject subject) {
 		salud = SALUD;
 		granadas = (Granada) WeaponFactory.getWeapon("Granada").reset();
 		armaPrincipal = (M1911) WeaponFactory.getWeapon("M1911");
 		armaSecundaria = (Remington)WeaponFactory.getWeapon("Remington");
 		cuchillo = new Cuchillo();
+		this.subject = subject;
 		// municion = principal.getLimBalas();
 	}
 
@@ -145,6 +149,7 @@ public class Personaje implements SerViviente, Serializable {
 	 */
 	public void aumentarScore(int puntos) {
 		score = score + puntos;
+		subject.setState(score);
 		matanza = (short) (matanza + 1);
 	}
 

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,9 +13,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import interfaz.InterfazZombieKiller;
 import mejoras.EstadoArma;
 import mejoras.Weapon;
 import mejoras.WeaponFactory;
+import mejoras.observer.SaludObserver;
+import mejoras.observer.Subject;
 
 public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 
@@ -105,8 +107,9 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	/**
 	 * Constructor de la clase principal del mundo
 	 */
-	public SurvivorCamp() {
-		personaje = new Personaje();
+	public SurvivorCamp(Subject subject, InterfazZombieKiller izk) {
+		personaje = new Personaje(subject);
+		new SaludObserver(subject, personaje, izk);
 		// aEliminar = new ArrayList<Zombie>();
 		estadoJuego = SIN_PARTIDA;
 		rondaActual = 0;

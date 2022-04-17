@@ -17,7 +17,7 @@ import hilo.HiloEnemigo;
 import hilo.HiloGeneradorDeZombies;
 import hilo.HiloSonido;
 import mejoras.commands.CommandExecutor;
-import mejoras.commands.IniciarCommand;
+import mejoras.observer.Subject;
 import mundo.ArmaDeFuego;
 import mundo.Boss;
 import mundo.NombreInvalidoException;
@@ -77,6 +77,8 @@ public class InterfazZombieKiller extends JFrame {
 	
 	private CommandExecutor commandExecutor;
 	
+	private Subject subject = new Subject();
+	
 	/**
 	 * Constructor de la clase principal del juego Aquí se inicializan todos los
 	 * componentes necesarios para empezar a jugar
@@ -105,7 +107,7 @@ public class InterfazZombieKiller extends JFrame {
 
 		add(panelMenu, BorderLayout.CENTER);
 
-		campo = new SurvivorCamp();
+		campo = new SurvivorCamp(subject, this);
 		try {
 			campo.cargarPuntajes();
 		} catch (ClassNotFoundException e) {
@@ -180,7 +182,7 @@ public class InterfazZombieKiller extends JFrame {
 	public void partidaIniciada() {
 		setCursor(cursorCuchillo);
 		Puntaje actual = campo.getRaizPuntajes();
-		campo = new SurvivorCamp();
+		campo = new SurvivorCamp(subject, this);
 		campo.actualizarPuntajes(actual);
 		campo.setEstadoJuego(SurvivorCamp.EN_CURSO);
 		armaActual = campo.getPersonaje().getPrincipal();

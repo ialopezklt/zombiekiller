@@ -3,7 +3,9 @@ package prueba;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import interfaz.InterfazZombieKiller;
 import junit.framework.TestCase;
+import mejoras.observer.Subject;
 import mundo.Puntaje;
 import mundo.SurvivorCamp;
 import mundo.Zombie;
@@ -11,18 +13,20 @@ import mundo.Zombie;
 public class SurvivorCampTest extends TestCase{
 
 	private SurvivorCamp sC;
+	private Subject subject = new Subject();
+	private InterfazZombieKiller izk;
 	
 	/**
 	 * crea un campo vacío
 	 */
 	private void setupEscenario1 () {
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 	}
 	/**
 	 * Crea un campo con 5 zombies vivos y de la ronda 5
 	 */
 	private void setupEscenario2 () {
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 		sC.generarZombie(5);
 		sC.generarZombie(5);
 		sC.generarZombie(5);
@@ -33,7 +37,7 @@ public class SurvivorCampTest extends TestCase{
 	 * Crea un campo con 2 zombies vivos y uno muriendo
 	 */
 	private void setupEscenario3 () {
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 		sC.generarZombie(4);
 		sC.generarZombie(4);
 		sC.generarZombie(4);
@@ -43,7 +47,7 @@ public class SurvivorCampTest extends TestCase{
 	 * crea diferentes partidas guardando 3 puntajes diferentes
 	 */
 	private void setupEscenario4 () {
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 		// 5 bajas, de ellas 3 son de tiro a la cabeza y un total de 310 puntos
 		sC.getPersonaje().aumentarScore(70);
 		sC.getPersonaje().aumentarTirosALaCabeza();
@@ -58,7 +62,7 @@ public class SurvivorCampTest extends TestCase{
 		} catch (IOException e) {
 			fail("No guarda bien el puntaje obtenido");
 		}
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 		try {
 			sC.cargarPuntajes();
 		} catch (ClassNotFoundException | IOException e1) {
@@ -77,7 +81,7 @@ public class SurvivorCampTest extends TestCase{
 		} catch (IOException e) {
 			fail("No guarda bien el puntaje obtenido");
 		}
-		sC = new SurvivorCamp();
+		sC = new SurvivorCamp(subject, izk);
 		try {
 			sC.cargarPuntajes();
 		} catch (ClassNotFoundException | IOException e1) {
