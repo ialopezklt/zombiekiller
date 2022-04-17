@@ -545,8 +545,12 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		File archivoPersonaje = new File(carpeta.getAbsolutePath() + "/personaje.txt");
 		if (!carpeta.exists())
 			carpeta.mkdirs();
+		System.out.println("1");
 		ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream(archivoPersonaje));
+		System.out.println("2");
+		System.out.println("personaje:" + personaje.getScore());
 		escritor.writeObject(personaje);
+		System.out.println("3");
 		escritor.close();
 		try {
 			guardarDatosCampo(carpeta);

@@ -12,7 +12,7 @@ public class SaludObserver extends Observer {
 	int deltaParaObtenerBono = 100;
 	
 	
-	public SaludObserver(Subject subject, Personaje personaje, InterfazZombieKiller izk){
+	public SaludObserver(Subject subject, Personaje personaje, InterfazZombieKiller izk) {
 	      this.subject = subject;
 	      this.personaje = personaje;
 	      this.izk = izk;

@@ -8,7 +8,9 @@ import java.io.IOException;
 
 import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import hilo.HiloArma;
@@ -256,12 +258,20 @@ public class InterfazZombieKiller extends JFrame {
 	 * Guarda la partida que está en curso
 	 */
 	public void guardarJuego() {
+		/*
+		ImageIcon loading = new ImageIcon(getClass().getResource("/img/ajax-loader.gif"));
+		JLabel loadingLabel = new JLabel("loading... ", loading, JLabel.CENTER);
+	    this.add(loadingLabel);*/
+	    
 		try {
 			campo.guardarPartida();
 			JOptionPane.showMessageDialog(this, "Partida Guardada");
 		} catch (IOException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
+		}  /*finally {
+			this.remove(loadingLabel);
+		}*/
 	}
 
 	/**
